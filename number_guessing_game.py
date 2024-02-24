@@ -1,47 +1,27 @@
 import random
+
 num = random.randint(1, 100)
 user = 0
 guess = 0
-upbound = 100
 lowbound = 1
+upbound = 100
 
-print("I'm thinking of a number between 1 and 100.")
+print(f"I'm thinking of a number between 1 and {upbound}.")
 
 while user != num:
-    user = input("Enter your guess: ")
-    user = int(user)
-    if user > 100:
-        print("Please enter a number that isn't greater than 100.")
+    user = int(input("Enter your guess: "))
+
+    if user > upbound:
+        print(f"Please enter a number that's between 1 and {upbound}")
+    elif user > num:
+        upbound = user - 1  # Update upper bound to one less than guess
+        print(f"Too high! It's between {lowbound} and {upbound}")
+        guess += 1
+    elif user < num:
+        lowbound = user + 1  # Update lower bound to one more than guess
+        print(f"Too low! It's between {lowbound} and {upbound}")
+        guess += 1
     else:
-        if user > num:
-            if lowbound > upbound:
-                lowbound = upbound
-            elif upbound < lowbound:
-                upbound = lowbound
-            upbound = user - 2
-            if user - 2 < upbound:
-                upbound = user - 2
-            if upbound < num:
-                upbound = num
-            print("Too high! It's between", lowbound, "and", upbound)
-            guess = guess + 1
-                
-        elif user < num:
-            if lowbound > upbound:
-                lowbound = upbound
-            elif upbound < lowbound:
-                upbound = lowbound
-            lowbound = user + 2
-            if user + 2 > lowbound:
-                lowbound = user + 2
-            if lowbound > num:
-                lowbound = num
-            print("Too low! It's between", lowbound, "and", upbound)
-            guess = guess + 1
-        else:
-            guess = guess + 1
-            print("You got it! And it only took you", guess, "tries!")
-
-        
-
+        guess += 1
+        print(f"You got it! And it only took you {guess} tries!")
 
